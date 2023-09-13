@@ -81,6 +81,9 @@ function Login() {
         const responseData = error.response.data;
         if (responseData.status === "error") {
           toast.error(responseData.message);
+          setTimeout(() => {
+            setIsLoading(false);
+          }, 1500);
         }
         if (responseData.message === "User not verified") {
           dispatch(userAction.addToEmail(email));

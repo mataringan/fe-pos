@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function TransactionCard({ transaction }) {
+export default function TransactionCard({ transaction, onDelete }) {
   return (
     <div className="bg-white rounded-lg shadow-md p-4 mb-4">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -39,7 +39,7 @@ export default function TransactionCard({ transaction }) {
               <p>Edit</p>
             </div>
           </Link>
-          <Button>
+          <Button onClick={onDelete}>
             <div className="bg-red-600 flex text-white w-[90px] rounded-rad-1 justify-center p-1 gap-1 cursor-pointer rounded-md">
               <p>❌</p>
               <p>Delete</p>

@@ -6,11 +6,15 @@ import Button from "@/components/Button";
 import Input from "@/components/Input";
 import axios from "axios";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function AddTransaksi() {
   const role = useSelector((state) => state.userData.role);
+  const router = useRouter();
   //   console.log(role);
   const [product, setProduct] = useState([]);
   const [productId, setProductId] = useState();
@@ -64,6 +68,10 @@ export default function AddTransaksi() {
       )
       .then((res) => {
         console.log(res);
+        toast.success(res.data.message);
+        setTimeout(() => {
+          router.push("/dashboard/transaksi");
+        }, 2000);
       });
   };
 
@@ -137,6 +145,17 @@ export default function AddTransaksi() {
           </form>
         </div>
       </div>
+      <ToastContainer
+        position="top-right" // Posisi toast container
+        autoClose={3000} // Durasi toast muncul dalam ms
+        hideProgressBar={false} // Menampilkan atau menyembunyikan progress bar
+        newestOnTop={false} // Menampilkan toast baru di atas atau di bawah toast lama
+        closeOnClick // Menutup toast saat diklik
+        rtl={false} // Teks toast mengikuti arah kanan ke kiri (misalnya dalam bahasa Arab)
+        pauseOnFocusLoss // Menjeda toast saat fokus hilang dari halaman
+        draggable // Memungkinkan pengguna untuk menyeret toast
+        pauseOnHover // Menjeda toast saat kursor mengarah ke atasnya
+      />
     </div>
   );
 }
