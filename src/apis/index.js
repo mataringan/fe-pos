@@ -1,5 +1,5 @@
 // api/endpoints.js
-const API_URL = "http://localhost:8000";
+const API_URL = "https://vwvk0hdp-8000.asse.devtunnels.ms";
 
 export const REGISTER_API = `${API_URL}/register`;
 export const LOGIN_API = `${API_URL}/login`;
