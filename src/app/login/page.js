@@ -116,7 +116,7 @@ function Login() {
                 <div className="lg:w-[60%]  w-[80%]">
                     <h1 className="text-2xl font-bold mb-2">Welcome Back 🖐️</h1>
                     <p className="lg:mb-7 mb-2">
-                        Today is a new day.{`It's`} your day.
+                        Today is a new day.Its your day.
                     </p>
                     <div>
                         <form onSubmit={handleLogin}>
@@ -171,7 +171,7 @@ function Login() {
                     </div>
                     <div className="text-center lg:mt-7 mt-4 text-[13px] ">
                         <p>
-                            {`Dont`} you have an account?
+                            Dont you have an account?
                             <Link
                                 href="/register"
                                 className="text-blue-700 font-semibold"

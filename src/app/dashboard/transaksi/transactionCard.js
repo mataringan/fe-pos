@@ -32,6 +32,9 @@ export default function TransactionCard({ transaction, onDelete }) {
                         Address: {transaction.address}
                     </p>
                     <p className="text-gray-600 mb-2">
+                        Status: {transaction.status}
+                    </p>
+                    <p className="text-gray-600 mb-2">
                         Note: {transaction.note}
                     </p>
                     <p className="text-gray-700">

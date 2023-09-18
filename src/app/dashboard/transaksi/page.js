@@ -18,6 +18,7 @@ export default function Transaction() {
     const [transaction, setTransaction] = useState([]);
     const [searchName, setSearchName] = useState();
     const [searchAddress, setSearchAddress] = useState();
+    const [searchStatus, setSearchStatus] = useState();
 
     const token = localStorage.getItem("token");
     useEffect(() => {
@@ -61,12 +62,16 @@ export default function Transaction() {
             apiURL += `name=${searchName}`;
         }
 
-        if (searchName && searchAddress) {
+        if (searchName && searchAddress && searchStatus) {
             apiURL += "&";
         }
 
         if (searchAddress) {
             apiURL += `address=${searchAddress}`;
+        }
+
+        if (searchStatus) {
+            apiURL += `status=${searchStatus}`;
         }
 
         await axios
@@ -132,13 +137,13 @@ export default function Transaction() {
                                 Tambah Data
                             </Link>
                         </Button>
-                        <div className="flex gap-2 mt-4 text-center">
+                        <div className="flex mt-4 text-center lg:gap-2">
                             <div>
                                 <label htmlFor="">Name: </label>
                                 <input
                                     type="search"
                                     placeholder="Search..."
-                                    className="w-32 h-10 p-2 rounded-md mt-1"
+                                    className="w-24 h-10 p-2 rounded-md mt-1"
                                     onChange={(e) =>
                                         setSearchName(e.target.value)
                                     }
@@ -149,19 +154,35 @@ export default function Transaction() {
                                 <input
                                     type="search"
                                     placeholder="Search..."
-                                    className="w-32 h-10 p-2 rounded-md mt-1"
+                                    className="w-24  h-10 p-2 rounded-md mt-1"
                                     onChange={(e) =>
                                         setSearchAddress(e.target.value)
                                     }
                                 />
                             </div>
+                            <div>
+                                <label htmlFor="status">Status: </label>
+                                <select
+                                    className="w-24 h-10 p-2 rounded-md mt-1 bg-white"
+                                    id="status"
+                                    onChange={(e) =>
+                                        setSearchStatus(e.target.value)
+                                    }
+                                >
+                                    <option value="">Pilih Status</option>
+                                    <option value="lunas">Lunas</option>
+                                    <option value="belum lunas">
+                                        Belum Lunas
+                                    </option>
+                                </select>
+                            </div>
                             <Button
-                                className="flex items-center"
+                                className="flex items-center ml-2   "
                                 onClick={() => {
                                     handleSearch();
                                 }}
                             >
-                                <HiSearch />
+                                <HiSearch className="w-7 h-7 mt-4 lg:mt-0 md:mt-0" />
                             </Button>
                         </div>
                     </div>
