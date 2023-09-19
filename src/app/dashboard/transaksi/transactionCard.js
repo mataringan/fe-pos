@@ -10,35 +10,35 @@ export default function TransactionCard({ transaction, onDelete }) {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <div className="col-span-1 lg:col-span-2">
                     <h2 className="text-lg font-semibold mb-2">
-                        Transaction ID: {transaction.id}
+                        ID Transaksi: {transaction.id}
                     </h2>
                     <p className="text-gray-600 mb-2">
                         User: {transaction.User.name}{" "}
                         {`(${transaction.User.role})`}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Buyer: {transaction.buyer}
+                        Pembeli: {transaction.buyer}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Product : {transaction.Product.name}
+                        Produk : {transaction.Product.name}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Date: {transaction.date}
+                        Tanggal: {transaction.date}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Quantity: {transaction.quantity}
+                        Jumlah: {transaction.quantity}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Address: {transaction.address}
+                        Alamat: {transaction.address}
                     </p>
                     <p className="text-gray-600 mb-2">
                         Status: {transaction.status}
                     </p>
                     <p className="text-gray-600 mb-2">
-                        Note: {transaction.note}
+                        Catatan: {transaction.note}
                     </p>
                     <p className="text-gray-700">
-                        Amount: {formatRupiah(transaction.amount)}
+                        Total: {formatRupiah(transaction.amount)}
                     </p>
                 </div>
                 <div className="col-span-1 lg:col-span-1">
@@ -46,7 +46,6 @@ export default function TransactionCard({ transaction, onDelete }) {
                         <Image
                             src={transaction.image}
                             alt={`Transaction ID: ${transaction.id}`}
-                            //   className="w-full h-auto"
                             width={1000}
                             height={1000}
                         />
