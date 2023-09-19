@@ -49,37 +49,40 @@ export default function AddTransaksi() {
     const handleAddTransaction = async (e) => {
         setIsLoading(true);
         e.preventDefault();
-        // mengubah format tanggal
-        const isoDate = new Date(date).toISOString();
-
-        await axios
-            .post(
-                TRANSACTION,
-                {
-                    productId,
-                    buyer,
-                    date: isoDate,
-                    quantity,
-                    image,
-                    status,
-                    address,
-                    note,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data",
+        try {
+            const isoDate = new Date(date).toISOString();
+            const response = await axios
+                .post(
+                    TRANSACTION,
+                    {
+                        productId,
+                        buyer,
+                        date: isoDate,
+                        quantity,
+                        image,
+                        status,
+                        address,
+                        note,
                     },
-                }
-            )
-            .then((res) => {
-                const data = res.data;
-                toast.success(data.message);
-
-                setTimeout(() => {
-                    router.push("/dashboard/transaksi");
-                }, 2000);
-            });
+                    {
+                        headers: {
+                            accept: "*/*",
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                )
+                .then((res) => {
+                    console.log(res);
+                    const data = res.data;
+                    toast.success(data.message);
+                    setTimeout(() => {
+                        router.push("/dashboard/transaksi");
+                    }, 2000);
+                });
+        } catch (error) {
+            console.log(error);
+        }
     };
 
     const fetchDataProduct = async () => {
