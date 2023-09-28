@@ -51,7 +51,7 @@ export default function AddTransaksi() {
         e.preventDefault();
         try {
             const isoDate = new Date(date).toISOString();
-            const response = await axios
+            await axios
                 .post(
                     TRANSACTION,
                     {
@@ -73,7 +73,7 @@ export default function AddTransaksi() {
                     }
                 )
                 .then((res) => {
-                    console.log(res);
+                    // console.log(res);
                     const data = res.data;
                     toast.success(data.message);
                     setTimeout(() => {

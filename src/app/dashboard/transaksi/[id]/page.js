@@ -101,7 +101,7 @@ export default function EditTransaction() {
                 console.log(err);
             });
     };
-    console.log(productId);
+    // console.log(productId);
     return (
         <div className="flex w-full">
             <div className="lg:w-[20%]">

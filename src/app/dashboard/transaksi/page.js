@@ -132,7 +132,7 @@ export default function Transaction() {
                         <Button>
                             <Link
                                 href="transaksi/add-transaction"
-                                className="bg-green-500 p-2 rounded-lg text-white"
+                                className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white"
                             >
                                 Tambah Data
                             </Link>

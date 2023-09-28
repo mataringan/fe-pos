@@ -16,6 +16,7 @@ export default function TambahProdukPage() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState();
+    const [stok, setStok] = useState();
     const [category, setCategory] = useState();
     const [image, setImage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -35,6 +36,7 @@ export default function TambahProdukPage() {
                     name,
                     description,
                     price,
+                    stok,
                     category,
                     image,
                 },
@@ -109,6 +111,20 @@ export default function TambahProdukPage() {
                                     type="number"
                                     id="Harga"
                                     onChange={(e) => setPrice(e.target.value)}
+                                    className="w-full p-2 border rounded"
+                                />
+                            </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="Harga"
+                                    className="block font-semibold mb-2"
+                                >
+                                    Stok
+                                </label>
+                                <Input
+                                    type="number"
+                                    id="Harga"
+                                    onChange={(e) => setStok(e.target.value)}
                                     className="w-full p-2 border rounded"
                                 />
                             </div>
