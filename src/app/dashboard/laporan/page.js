@@ -18,7 +18,7 @@ export default function Laporan() {
     const name = user.name;
 
     useEffect(() => {
-        if (role === "admin") {
+        if (role === "admin" || role === "super admin") {
             fetchDataAdmin();
             fetchDataUser();
         } else {
@@ -77,21 +77,13 @@ export default function Laporan() {
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <div className="mb-6">
                         <h1 className="font-bold text-2xl">Dashboard</h1>
-                        {role === "admin" ? (
-                            <div>
-                                <p>
-                                    Hi Admin! Selamat Datang di Dashboard
-                                    Laporan
-                                </p>
-                                {/* <Button className="mt-6">
-                                    <Link
-                                        href="/dashboard/information/add-information"
-                                        className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white"
-                                    >
-                                        Tambah Informasi
-                                    </Link>
-                                </Button> */}
-                            </div>
+                        {role === "super admin" ? (
+                            <p>
+                                Hi Super Admin! Selamat Datang di Dashboard
+                                Laporan
+                            </p>
+                        ) : role === "admin" ? (
+                            <p>Hi Admin! Selamat Datang di Dashboard Laporan</p>
                         ) : (
                             <p>
                                 Hi Karyawan! Selamat Datang di Dashboard Laporan

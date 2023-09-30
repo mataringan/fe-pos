@@ -132,29 +132,52 @@ export default function Dashboard() {
                     <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                         <div className="mb-6">
                             <h1 className="font-bold text-2xl">Dashboard</h1>
-                            {role === "admin" ? (
+                            {role === "super admin" ? (
                                 <p>
-                                    Hi Admin! Selamat Datang di Dashboard
-                                    Laporan
+                                    Hi Super Admin! Selamat Datang di Dashboard
                                 </p>
+                            ) : role === "admin" ? (
+                                <p>Hi Admin! Selamat Datang di Dashboard</p>
                             ) : (
-                                <p>
-                                    Hi Karyawan! Selamat Datang di Dashboard
-                                    Laporan
-                                </p>
+                                <p>Hi Karyawan! Selamat Datang di Dashboard</p>
                             )}
                         </div>
                         <div className="flex lg:justify-around flex-col lg:flex-row items-center gap-4 lg:gap-0">
                             <div className="w-[260px] h-36 bg-blue-500 rounded-md flex items-center justify-center gap-4 flex-col p-12 text-white ">
-                                <div className="flex items-center justify-center gap-4">
-                                    <p className="text-[30px]">{user.length}</p>
-                                    <FcConferenceCall className="text-[30px]" />
-                                </div>
-                                <div>
-                                    <p className="font-semibold">
-                                        Cabang & Karyawan
-                                    </p>
-                                </div>
+                                {role === "admin" || role === "super admin" ? (
+                                    <div>
+                                        <div className="flex items-center justify-center gap-4">
+                                            <Link
+                                                href={"/dashboard/user"}
+                                                className="flex items-center gap-4"
+                                            >
+                                                <p className="text-[30px]">
+                                                    {user.length}
+                                                </p>
+                                                <FcConferenceCall className="text-[30px]" />
+                                            </Link>
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">
+                                                Cabang & Karyawan
+                                            </p>
+                                        </div>
+                                    </div>
+                                ) : (
+                                    <div>
+                                        <div className="flex items-center justify-center gap-4">
+                                            <p className="text-[30px]">
+                                                {user.length}
+                                            </p>
+                                            <FcConferenceCall className="text-[30px]" />
+                                        </div>
+                                        <div>
+                                            <p className="font-semibold">
+                                                Cabang & Karyawan
+                                            </p>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                             <div className="w-[260px] h-36 bg-green-500 rounded-md flex items-center justify-center gap-4 flex-col p-12 text-white ">
                                 <div className="flex items-center justify-center gap-4">
@@ -167,7 +190,7 @@ export default function Dashboard() {
                                     <p className="font-semibold">Stok Barang</p>
                                 </div>
                             </div>
-                            {role === "admin" ? (
+                            {role === "super admin" ? (
                                 <div className="w-[260px] h-36 bg-violet-500 rounded-md flex items-center justify-center gap-4 flex-col text-white ">
                                     <div className="flex items-center justify-center gap-4">
                                         <p className="text-[20px]">
@@ -258,7 +281,7 @@ export default function Dashboard() {
                                 <h1 className="text-2xl font-semibold">
                                     Informasi
                                 </h1>
-                                {role === "admin" ? (
+                                {role === "admin" || role === "super admin" ? (
                                     <div>
                                         <Link href="/dashboard/information">
                                             <HiOutlineInformationCircle className="h-5 w-5 mb-2" />

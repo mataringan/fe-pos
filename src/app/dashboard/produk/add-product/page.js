@@ -29,30 +29,35 @@ export default function TambahProdukPage() {
     const handleAddProduct = async (e) => {
         setIsLoading(true);
         e.preventDefault();
-        const response = await axios
-            .post(
-                ADD_PRODUCT,
-                {
-                    name,
-                    description,
-                    price,
-                    stok,
-                    category,
-                    image,
-                },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        "Content-Type": "multipart/form-data",
+        try {
+            await axios
+                .post(
+                    ADD_PRODUCT,
+                    {
+                        name,
+                        description,
+                        price,
+                        stok,
+                        category,
+                        image,
                     },
-                }
-            )
-            .then((res) => {
-                toast.success(res.data.message);
-                setTimeout(() => {
-                    router.push("/dashboard/produk");
-                }, 2000);
-            });
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                )
+                .then((res) => {
+                    setIsLoading(true);
+                    toast.success("Tambah Produk Berhasil");
+                    setTimeout(() => {
+                        router.push("/dashboard/produk");
+                    }, 2000);
+                });
+        } catch (error) {
+            setIsLoading(false);
+        }
     };
 
     return (

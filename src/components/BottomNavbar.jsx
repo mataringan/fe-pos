@@ -31,7 +31,7 @@ export default function BottomNavbar() {
                     <h1 className="font-bold">Transaksi</h1>
                 </Link>
             </div>
-            {role === "admin" && (
+            {role === "admin" || role === "super admin" ? (
                 <div>
                     <Link
                         href="/dashboard/produk"
@@ -41,6 +41,8 @@ export default function BottomNavbar() {
                         <h1 className="font-bold text-body-1">Produk</h1>
                     </Link>
                 </div>
+            ) : (
+                ""
             )}
             <div>
                 <Link

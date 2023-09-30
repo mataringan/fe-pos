@@ -7,10 +7,13 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import AccordionItem from "../accordion";
+import { useSelector } from "react-redux";
 
 export default function Information() {
     const [information, setInformation] = useState([]);
     const token = localStorage.getItem("token");
+    const role = useSelector((state) => state.userData.role);
+    // console.log(role);
 
     useEffect(() => {
         axios.get(INFORMATION).then((res) => {
@@ -43,9 +46,18 @@ export default function Information() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <h1 className="font-bold text-2xl">Dashboard</h1>
-                    <p className="mb-2">
-                        Hi Admin! Selamat Datang di Dashboard Informasi
-                    </p>
+                    {role === "super admin" ? (
+                        <p>
+                            Hi Super Admin! Selamat Datang di Dashboard
+                            Informasi
+                        </p>
+                    ) : role === "admin" ? (
+                        <p>Hi Admin! Selamat Datang di Dashboard Informasi</p>
+                    ) : (
+                        <p>
+                            Hi Karyawan! Selamat Datang di Dashboard Informasi
+                        </p>
+                    )}
                     <Button className="my-6">
                         <Link
                             href="/dashboard/information/add-information"

@@ -73,7 +73,7 @@ export default function EditPage() {
                 )
                 .then((res) => {
                     // console.log(res);
-                    toast.success(res.data.message);
+                    toast.success("Update produk berhasil");
                     router.push("/dashboard/produk");
                 });
         } catch (error) {

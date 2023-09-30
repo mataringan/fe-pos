@@ -3,6 +3,8 @@
 const API_URL = "http://localhost:8000";
 
 export const REGISTER_API = `${API_URL}/register`;
+export const ADD_USER = `${API_URL}/add-user`;
+export const GET_USER = `${API_URL}/user`;
 export const LOGIN_API = `${API_URL}/login`;
 export const VERIFY_USER = `${API_URL}/verify-user`;
 export const RESEND_OTP = `${API_URL}/resend-otp`;

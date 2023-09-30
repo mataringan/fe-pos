@@ -37,7 +37,7 @@ const AccordionItem = ({ id, title, content, date, onDelete }) => {
             {isOpen && (
                 <div className="bg-gray-100 p-4">
                     <p className="text-gray-800">{content}</p>
-                    {role === "admin" ? (
+                    {role === "admin" || role === "super admin" ? (
                         <div className="flex justify-center mt-4 gap-2 lg:justify-end">
                             <Link href={`/dashboard/information/${id}`}>
                                 <div className="bg-color-1 flex bg-yellow-400 text-white w-[90px] justify-center p-1 gap-1 cursor-pointer rounded-md">

@@ -75,7 +75,7 @@ export default function AddTransaksi() {
                 .then((res) => {
                     // console.log(res);
                     const data = res.data;
-                    toast.success(data.message);
+                    toast.success("Tambah Transaksi Berhasil");
                     setTimeout(() => {
                         router.push("/dashboard/transaksi");
                     }, 2000);

@@ -92,7 +92,7 @@ export default function EditTransaction() {
                 }
             )
             .then((res) => {
-                toast.success(res.data.message);
+                toast.success("Update Transaksi Berhasil");
                 setTimeout(() => {
                     router.push("/dashboard/transaksi");
                 }, 2000);

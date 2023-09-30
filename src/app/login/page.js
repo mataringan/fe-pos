@@ -170,7 +170,7 @@ function Login() {
                         <div className="flex-1 h-0.5 bg-gray-300"></div>
                     </div>
                     <div className="text-center lg:mt-7 mt-4 text-[13px] ">
-                        <p>
+                        {/* <p>
                             Dont you have an account?
                             <Link
                                 href="/register"
@@ -178,7 +178,7 @@ function Login() {
                             >
                                 Sign Up
                             </Link>
-                        </p>
+                        </p> */}
                         <p className="md:mt-10 mt-4">
                             © 2023 CV Ngaos Berkah Family
                         </p>

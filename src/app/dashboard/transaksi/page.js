@@ -12,6 +12,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Input from "@/components/Input";
 import { HiSearch } from "react-icons/hi";
+import { useDebounce } from "use-debounce";
 
 export default function Transaction() {
     const role = useSelector((state) => state.userData.role);
@@ -21,42 +22,62 @@ export default function Transaction() {
     const [searchStatus, setSearchStatus] = useState();
 
     const token = localStorage.getItem("token");
+    const [debouncedSearchName] = useDebounce(searchName, 500);
+    const [debouncedSearchAddress] = useDebounce(searchAddress, 500);
+    const [debouncedSearchStatus] = useDebounce(searchStatus, 500);
+
     useEffect(() => {
-        if (role === "admin") {
-            fethDataAdmin();
+        if (role === "admin" || role === "super admin") {
+            // fethDataAdmin();
+            getAllTransaction(
+                debouncedSearchName,
+                debouncedSearchAddress,
+                debouncedSearchStatus
+            );
         } else {
-            fetchDataKaryawan();
+            // fetchDataKaryawan();
+            getAllTransaction(
+                debouncedSearchName,
+                debouncedSearchAddress,
+                debouncedSearchStatus
+            );
         }
-    }, []);
+    }, [debouncedSearchName, debouncedSearchAddress, debouncedSearchStatus]);
 
-    const fetchDataKaryawan = async () => {
-        await axios
-            .get(TRANSACTION, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                setTransaction(res.data.data);
-            });
-    };
+    // const fetchDataKaryawan = async () => {
+    //     await axios
+    //         .get(TRANSACTION, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //         .then((res) => {
+    //             setTransaction(res.data.data);
+    //         });
+    // };
 
-    const fethDataAdmin = async () => {
-        await axios
-            .get(TRANSACTION_ADMIN, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
-            .then((res) => {
-                // console.log(res);
-                setTransaction(res.data.data);
-            });
-    };
+    // const fethDataAdmin = async () => {
+    //     await axios
+    //         .get(TRANSACTION_ADMIN, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //         .then((res) => {
+    //             // console.log(res);
+    //             setTransaction(res.data.data);
+    //         });
+    // };
 
-    const handleSearch = async () => {
+    const getAllTransaction = async (
+        searchName,
+        searchAddress,
+        searchStatus
+    ) => {
         let apiURL =
-            role === "admin" ? `${TRANSACTION_ADMIN}?` : `${TRANSACTION}?`;
+            role === "admin" || role === "super admin"
+                ? `${TRANSACTION_ADMIN}?`
+                : `${TRANSACTION}?`;
 
         if (searchName) {
             apiURL += `name=${searchName}`;
@@ -86,6 +107,41 @@ export default function Transaction() {
             });
         // }
     };
+
+    // const handleSearch = async () => {
+    //     let apiURL =
+    //         role === "admin" || role === "super admin"
+    //             ? `${TRANSACTION_ADMIN}?`
+    //             : `${TRANSACTION}?`;
+
+    //     if (searchName) {
+    //         apiURL += `name=${searchName}`;
+    //     }
+
+    //     if (searchName && searchAddress && searchStatus) {
+    //         apiURL += "&";
+    //     }
+
+    //     if (searchAddress) {
+    //         apiURL += `address=${searchAddress}`;
+    //     }
+
+    //     if (searchStatus) {
+    //         apiURL += `status=${searchStatus}`;
+    //     }
+
+    //     await axios
+    //         .get(apiURL, {
+    //             headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //             },
+    //         })
+    //         .then((res) => {
+    //             // console.log(res);
+    //             setTransaction(res.data.data);
+    //         });
+    //     // }
+    // };
 
     const handleDelete = async (transactionId) => {
         try {
@@ -119,16 +175,14 @@ export default function Transaction() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <h1 className="font-bold text-2xl">Dashboard</h1>
-                    {role === "karyawan" ? (
-                        <p className="mb-2">
-                            Hi karyawan! Selamat Datang di Dashboard Transaction
-                        </p>
+                    {role === "super admin" ? (
+                        <p>Hi Super Admin! Selamat Datang di Dashboard</p>
+                    ) : role === "admin" ? (
+                        <p>Hi Admin! Selamat Datang di Dashboard</p>
                     ) : (
-                        <p className="mb-2">
-                            Hi Admin! Selamat Datang di Dashboard Transaction
-                        </p>
+                        <p>Hi Karyawan! Selamat Datang di Dashboard</p>
                     )}
-                    <div className="lg:flex lg:justify-between lg:items-center mb-6">
+                    <div className="lg:flex lg:justify-between lg:items-center my-4">
                         <Button>
                             <Link
                                 href="transaksi/add-transaction"
@@ -176,14 +230,14 @@ export default function Transaction() {
                                     </option>
                                 </select>
                             </div>
-                            <Button
+                            {/* <Button
                                 className="flex items-center ml-2   "
                                 onClick={() => {
                                     handleSearch();
                                 }}
                             >
                                 <HiSearch className="w-7 h-7 mt-4 lg:mt-0 md:mt-0" />
-                            </Button>
+                            </Button> */}
                         </div>
                     </div>
                     {transaction.map((transaction) => (
