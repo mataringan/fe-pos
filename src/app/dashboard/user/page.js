@@ -1,6 +1,11 @@
 "use client";
 
-import { GET_ALL_USER, GET_USER } from "@/apis";
+import {
+    GET_ALL_USER,
+    GET_ALL_USER_BY_ADMIN,
+    GET_USER,
+    TRANSACTION_BY_USER,
+} from "@/apis";
 import BottomNavbar from "@/components/BottomNavbar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -14,29 +19,39 @@ import { useDebounce } from "use-debounce";
 
 export default function User() {
     const role = useSelector((state) => state.userData.role);
+    console.log(role);
     const [user, setUser] = useState([]);
     const token = localStorage.getItem("token");
     const [searchName, setSearchName] = useState("");
+    const [searchAddress, setSearchAddress] = useState("");
     const [searchRole, setSearchRole] = useState("");
 
     const [debouncedSearchName] = useDebounce(searchName, 500);
+    const [debouncedSearchAddress] = useDebounce(searchAddress, 500);
     const [debouncedSearchRole] = useDebounce(searchRole, 500);
 
-    const getAllUser = async (searchName, searchRole) => {
-        // await axios.get(GET_ALL_USER).then((res) => {
-        //     setUser(res.data.data);
-        //     // console.log(res.data.data);
-        // });
-        let apiURL = `${GET_ALL_USER}?`;
+    // console.log(user);
+    // console.log(searchAddress);
+
+    const getAllUser = async (searchName, searchAddress, searchRole) => {
+        let apiURL =
+            role === "super admin"
+                ? `${GET_ALL_USER_BY_ADMIN}?`
+                : `${GET_ALL_USER}?`;
         if (searchName) {
             apiURL += `name=${searchName}`;
         }
-        if (searchName && searchRole) {
+        if (searchName && searchRole && searchAddress) {
             apiURL += "&";
         }
         if (searchRole) {
             apiURL += `role=${searchRole}`;
         }
+        if (searchAddress) {
+            apiURL += `address=${searchAddress}`;
+        }
+
+        console.log(apiURL);
 
         await axios.get(apiURL).then((res) => {
             // console.log(res);
@@ -45,8 +60,12 @@ export default function User() {
     };
 
     useEffect(() => {
-        getAllUser(debouncedSearchName, debouncedSearchRole);
-    }, [debouncedSearchName, debouncedSearchRole]);
+        getAllUser(
+            debouncedSearchName,
+            debouncedSearchAddress,
+            debouncedSearchRole
+        );
+    }, [debouncedSearchName, debouncedSearchRole, debouncedSearchAddress]);
 
     const getExcellUser = async () => {
         try {
@@ -70,6 +89,11 @@ export default function User() {
                         width: 25,
                     },
                     {
+                        header: "Alamat",
+                        key: "alamat",
+                        width: 25,
+                    },
+                    {
                         header: "Role",
                         key: "role",
                         width: 25,
@@ -81,6 +105,7 @@ export default function User() {
                         nama: item.name,
                         email: item.email,
                         phone: item.phone,
+                        alamat: item.address,
                         role: item.role,
                     });
                 });
@@ -117,6 +142,7 @@ export default function User() {
                 }, 2000);
             });
     };
+
     return (
         <div>
             <div className="flex w-full">
@@ -139,21 +165,44 @@ export default function User() {
                     <div className="flex justify-between ">
                         <Link href="/dashboard/user/add-user">
                             <Button className="bg-blue-500 hover:bg-blue-700 p-2 rounded-lg text-white">
-                                + Tambah Karyawan / Cabang
+                                + Tambah User
                             </Button>
                         </Link>
                         <div className="flex gap-3">
-                            <Input
-                                type="search"
-                                placeholder="Search..."
-                                className="p-2 rounded-md"
-                                onChange={(e) => setSearchName(e.target.value)}
-                            />
+                            <div>
+                                <label htmlFor="searchName">Nama: </label>
+                                <Input
+                                    id="searchName"
+                                    type="search"
+                                    placeholder="Search..."
+                                    className="p-2 rounded-md"
+                                    onChange={(e) =>
+                                        setSearchName(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="searchAddress">Alamat: </label>
+                                <Input
+                                    id="searchAddress"
+                                    type="search"
+                                    placeholder="Search..."
+                                    className="p-2 rounded-md"
+                                    onChange={(e) =>
+                                        setSearchAddress(e.target.value)
+                                    }
+                                />
+                            </div>
                             <select
                                 className="p-2 rounded-md bg-white"
                                 onChange={(e) => setSearchRole(e.target.value)}
                             >
                                 <option value="">Role</option>
+                                {role === "super admin" ? (
+                                    <option value="admin">Admin</option>
+                                ) : (
+                                    ""
+                                )}
                                 <option value="karyawan">Karyawan</option>
                                 <option value="cabang">Cabang</option>
                             </select>
@@ -168,7 +217,11 @@ export default function User() {
                         >
                             Cetak Data User
                         </button>
-                        <UserTable user={user} onDelete={handleDelete} />
+                        <UserTable
+                            user={user}
+                            onDelete={handleDelete}
+                            // getLaporanUser={getLaporanUser}
+                        />
                     </div>
                 </div>
             </div>

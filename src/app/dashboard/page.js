@@ -9,14 +9,13 @@ import { FcDatabase } from "react-icons/fc";
 import { FcInTransit } from "react-icons/fc";
 import { FcCurrencyExchange } from "react-icons/fc";
 import { HiOutlineInformationCircle } from "react-icons/hi";
-import { useDispatch } from "react-redux";
+
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useSelector } from "react-redux";
 import NewTransactionTable from "./newTransaction";
 import AccordionItem from "./accordion";
-import Image from "next/image";
 import axios from "axios";
 import {
     GET_ALL_USER,
@@ -40,6 +39,10 @@ export default function Dashboard() {
     const [information, setInformation] = useState([]);
 
     useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
         if (!token) {
             toast.error("Anda Belum Login");
             setTimeout(() => {
@@ -84,7 +87,7 @@ export default function Dashboard() {
                 setInformation(res.data.data);
             });
         }
-    }, []);
+    };
 
     const calculateTotalStock = () => {
         let totalAllStock = 0;
@@ -156,6 +159,16 @@ export default function Dashboard() {
                                                 </p>
                                                 <FcConferenceCall className="text-[30px]" />
                                             </Link>
+                                            {role === "admin" ||
+                                            role === "super admin" ? (
+                                                <div>
+                                                    <Link href="/dashboard/user">
+                                                        <HiOutlineInformationCircle className="h-5 w-5 mb-2" />
+                                                    </Link>
+                                                </div>
+                                            ) : (
+                                                ""
+                                            )}
                                         </div>
                                         <div>
                                             <p className="font-semibold">
@@ -266,6 +279,9 @@ export default function Dashboard() {
                                                     {formatRupiah(
                                                         product.price
                                                     )}
+                                                </p>
+                                                <p className="text-gray-600 mb-1">
+                                                    Stok: {product.stok}
                                                 </p>
                                                 <p className="text-gray-500">
                                                     {product.description}

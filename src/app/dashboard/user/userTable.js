@@ -1,12 +1,19 @@
 import Button from "@/components/Button";
 import Link from "next/link";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 
-const UserTable = ({ user, onDelete }) => {
+const UserTable = ({ user, onDelete, getLaporanUser }) => {
     return (
         <div className="overflow-x-auto rounded-md">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-yellow-300">
                     <tr>
+                        <th
+                            scope="col"
+                            className="px-2 py-4  text-xs  text-gray-500 uppercase tracking-wider font-bold"
+                        >
+                            No
+                        </th>
                         <th
                             scope="col"
                             className="px-2 py-4  text-xs  text-gray-500 uppercase tracking-wider font-bold"
@@ -29,6 +36,12 @@ const UserTable = ({ user, onDelete }) => {
                             scope="col"
                             className="px-2 py-4   text-xs font-bold text-gray-500 uppercase tracking-wider"
                         >
+                            Alamat
+                        </th>
+                        <th
+                            scope="col"
+                            className="px-2 py-4   text-xs font-bold text-gray-500 uppercase tracking-wider"
+                        >
                             Role
                         </th>
                         <th
@@ -37,11 +50,20 @@ const UserTable = ({ user, onDelete }) => {
                         >
                             Aksi
                         </th>
+                        <th
+                            scope="col"
+                            className="px-2 py-4   text-xs font-bold text-gray-500 uppercase tracking-wider"
+                        >
+                            Laporan
+                        </th>
                     </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                     {user.map((item, index) => (
                         <tr key={index}>
+                            <td className="px-2 py-4 text-center whitespace-nowrap">
+                                {index + 1}
+                            </td>
                             <td className="px-2 py-4 text-center whitespace-nowrap">
                                 {item.name}
                             </td>
@@ -50,6 +72,9 @@ const UserTable = ({ user, onDelete }) => {
                             </td>
                             <td className="px-2 py-4 text-center whitespace-nowrap">
                                 {item.phone}
+                            </td>
+                            <td className="px-2 py-4 text-center whitespace-nowrap">
+                                {item.address}
                             </td>
                             <td className="px-2 py-4 text-center whitespace-nowrap">
                                 {item.role}
@@ -73,6 +98,20 @@ const UserTable = ({ user, onDelete }) => {
                                         </div>
                                     </Button>
                                 </div>
+                            </td>
+                            <td className="px-2 py-4  whitespace-nowrap flex justify-center items-center">
+                                {/* <Button
+                                        onClick={() => {
+                                            getLaporanUser(item.id);
+                                        }}
+                                    >
+                                        <HiOutlineInformationCircle className="h-5 w-5 mb-2" />
+                                    </Button> */}
+                                <Link
+                                    href={`/dashboard/user/laporan/${item.id}`}
+                                >
+                                    <HiOutlineInformationCircle className="h-5 w-5 mb-2" />
+                                </Link>
                             </td>
                         </tr>
                     ))}

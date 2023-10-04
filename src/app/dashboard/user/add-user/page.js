@@ -20,6 +20,7 @@ export default function AddUser() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [phone, setPhone] = useState("");
+    const [address, setAddress] = useState("");
     const [password, setPassword] = useState("");
     const [role, setRole] = useState("");
 
@@ -34,6 +35,7 @@ export default function AddUser() {
                     name,
                     email,
                     phone,
+                    address,
                     password,
                     role,
                 },
@@ -118,6 +120,19 @@ export default function AddUser() {
                                     placeholder="Masukkan Email"
                                     className="p-2 border rounded-lg bg-[#F7FBFF]"
                                     onChange={(e) => setEmail(e.target.value)}
+                                />
+                            </div>
+                            <div className="flex flex-col my-2">
+                                <label htmlFor="address" className="mb-2">
+                                    Address
+                                    <span className="text-red-600">*</span>
+                                </label>
+                                <Input
+                                    id="address"
+                                    type="text"
+                                    placeholder="Masukkan Alamat"
+                                    className="p-2 border rounded-lg bg-[#F7FBFF]"
+                                    onChange={(e) => setAddress(e.target.value)}
                                 />
                             </div>
                             <div className="mb-4">

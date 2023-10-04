@@ -10,6 +10,7 @@ import { toast, ToastContainer } from "react-toastify";
 function VerifyOTP() {
     const router = useRouter();
     const emailUser = useSelector((state) => state.userData.email);
+    // console.log(emailUser);
     const [otp, setOTP] = useState("");
     const [countdown, setCountdown] = useState(0);
 
@@ -32,9 +33,13 @@ function VerifyOTP() {
     const handleResendOtp = async () => {
         try {
             setCountdown(60);
-            const response = await axios.post(RESEND_OTP, {
-                email: emailUser,
-            });
+            await axios
+                .post(RESEND_OTP, {
+                    email: emailUser,
+                })
+                .then((res) => {
+                    // console.log(res);
+                });
             // console.log(response);
         } catch (error) {
             console.error(error);

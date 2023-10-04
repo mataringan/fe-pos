@@ -12,14 +12,26 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { useForm, Controller } from "react-hook-form";
 
 function Login() {
     const [isLoading, setIsLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
     const router = useRouter();
     const session = useSession();
     const dispatch = useDispatch();
+    const {
+        control,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
+
+    const togglePasswordVisibility = () => {
+        setShowPassword(!showPassword); // Toggle the state
+    };
 
     // const hanldeLogin = async (e) => {
     //   e.preventDefault();
@@ -50,15 +62,15 @@ function Login() {
     //   });
     // };
 
-    const handleLogin = async (e) => {
+    const handleLogin = async (data) => {
         setIsLoading(true);
-        e.preventDefault();
+        // e.preventDefault();
         try {
             const response = await axios.post(
                 LOGIN_API,
                 {
-                    email,
-                    password,
+                    email: data.email,
+                    password: data.password,
                 },
                 {
                     headers: {
@@ -119,33 +131,87 @@ function Login() {
                         Today is a new day.Its your day.
                     </p>
                     <div>
-                        <form onSubmit={handleLogin}>
+                        <form onSubmit={handleSubmit(handleLogin)}>
                             <div className="flex flex-col my-4">
                                 <label htmlFor="email" className="mb-2">
                                     Email
                                     <span className="text-red-600">*</span>
                                 </label>
-                                <Input
-                                    id="email"
-                                    type="email"
-                                    placeholder="Masukkan Email"
-                                    className="p-2 border rounded-lg bg-[#F7FBFF]"
-                                    onChange={(e) => setEmail(e.target.value)}
+                                <Controller
+                                    name="email"
+                                    control={control}
+                                    defaultValue=""
+                                    rules={{
+                                        required: "Email tidak boleh kosong",
+                                        pattern: /^\S+@\S+$/i,
+                                    }}
+                                    render={({ field }) => (
+                                        <Input
+                                            id="email"
+                                            type="email"
+                                            placeholder="Masukkan Email"
+                                            className={`p-2 border rounded-lg bg-[#F7FBFF] ${
+                                                errors.email
+                                                    ? "border-red-500"
+                                                    : ""
+                                            }`}
+                                            {...field}
+                                        />
+                                    )}
                                 />
+                                {errors.email && (
+                                    <p className="mt-2 text-[13px]">
+                                        {errors.email.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="flex flex-col">
                                 <label htmlFor="password" className="mb-2">
                                     Password
                                     <span className="text-red-600">*</span>
                                 </label>
-                                <Input
-                                    type="password"
-                                    placeholder="Masukkan Password"
-                                    className="p-2 border rounded-lg bg-[#F7FBFF]"
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
-                                />
+                                <div className="relative">
+                                    <div className="flex">
+                                        <Controller
+                                            name="password"
+                                            control={control}
+                                            defaultValue=""
+                                            rules={{
+                                                required:
+                                                    "Password harus diisi",
+                                            }}
+                                            render={({ field }) => (
+                                                <Input
+                                                    id="password"
+                                                    type={
+                                                        showPassword
+                                                            ? "text"
+                                                            : "password"
+                                                    }
+                                                    placeholder="Masukkan Password"
+                                                    className="p-2 border rounded-lg bg-[#F7FBFF] flex-grow"
+                                                    {...field}
+                                                />
+                                            )}
+                                        />
+                                        <button
+                                            type="button"
+                                            className="absolute top-3 right-3 cursor-pointer"
+                                            onClick={togglePasswordVisibility}
+                                        >
+                                            {showPassword ? (
+                                                <AiOutlineEyeInvisible />
+                                            ) : (
+                                                <AiOutlineEye />
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                                {errors.password && (
+                                    <p className="mt-2 text-[13px]">
+                                        {errors.password.message}
+                                    </p>
+                                )}
                             </div>
                             <div className="text-right lg:mt-7 mt-3 text-[13px] text-blue-700 font-semibold">
                                 <Link href="/forgot-password">

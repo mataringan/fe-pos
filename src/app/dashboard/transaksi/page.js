@@ -20,11 +20,15 @@ export default function Transaction() {
     const [searchName, setSearchName] = useState();
     const [searchAddress, setSearchAddress] = useState();
     const [searchStatus, setSearchStatus] = useState();
+    const [searchDate, setSearchDate] = useState();
+
+    // console.log(searchDate);
 
     const token = localStorage.getItem("token");
     const [debouncedSearchName] = useDebounce(searchName, 500);
     const [debouncedSearchAddress] = useDebounce(searchAddress, 500);
     const [debouncedSearchStatus] = useDebounce(searchStatus, 500);
+    const [debouncedSearchDate] = useDebounce(searchDate, 500);
 
     useEffect(() => {
         if (role === "admin" || role === "super admin") {
@@ -32,17 +36,24 @@ export default function Transaction() {
             getAllTransaction(
                 debouncedSearchName,
                 debouncedSearchAddress,
-                debouncedSearchStatus
+                debouncedSearchStatus,
+                debouncedSearchDate
             );
         } else {
             // fetchDataKaryawan();
             getAllTransaction(
                 debouncedSearchName,
                 debouncedSearchAddress,
-                debouncedSearchStatus
+                debouncedSearchStatus,
+                debouncedSearchDate
             );
         }
-    }, [debouncedSearchName, debouncedSearchAddress, debouncedSearchStatus]);
+    }, [
+        debouncedSearchName,
+        debouncedSearchAddress,
+        debouncedSearchStatus,
+        debouncedSearchDate,
+    ]);
 
     // const fetchDataKaryawan = async () => {
     //     await axios
@@ -72,7 +83,8 @@ export default function Transaction() {
     const getAllTransaction = async (
         searchName,
         searchAddress,
-        searchStatus
+        searchStatus,
+        searchDate
     ) => {
         let apiURL =
             role === "admin" || role === "super admin"
@@ -83,7 +95,7 @@ export default function Transaction() {
             apiURL += `name=${searchName}`;
         }
 
-        if (searchName && searchAddress && searchStatus) {
+        if (searchName && searchAddress && searchStatus && searchDate) {
             apiURL += "&";
         }
 
@@ -93,6 +105,10 @@ export default function Transaction() {
 
         if (searchStatus) {
             apiURL += `status=${searchStatus}`;
+        }
+
+        if (searchDate) {
+            apiURL += `date=${searchDate}`;
         }
 
         await axios
@@ -191,7 +207,7 @@ export default function Transaction() {
                                 Tambah Data
                             </Link>
                         </Button>
-                        <div className="flex mt-4 text-center lg:gap-2">
+                        <div className="flex justify-between lg:justify-normal flex-wrap mt-4 text-center lg:gap-2">
                             <div>
                                 <label htmlFor="">Name: </label>
                                 <input
@@ -211,6 +227,16 @@ export default function Transaction() {
                                     className="w-24  h-10 p-2 rounded-md mt-1"
                                     onChange={(e) =>
                                         setSearchAddress(e.target.value)
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="">Tanggal: </label>
+                                <input
+                                    type="date"
+                                    className="w-24 h-10 p-2 rounded-md mt-1"
+                                    onChange={(e) =>
+                                        setSearchDate(e.target.value)
                                     }
                                 />
                             </div>
