@@ -104,7 +104,7 @@ export default function Account() {
                         Logout
                     </button>
                 </div>
-                <div className="flex lg:p-64 lg:gap-24 flex-col lg:flex-row mt-7">
+                <div className="flex lg:p-44 lg:gap-24 flex-col lg:flex-row mt-7">
                     <div className="flex flex-col ">
                         <div className="flex flex-col">
                             <div className="relative w-32 h-32 mx-auto">

@@ -1,5 +1,5 @@
 "use client";
-import { LOGIN_API } from "@/apis";
+import { LOGIN_API, RESEND_OTP } from "@/apis";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
 import { userAction } from "@/store/user-slice";
@@ -31,6 +31,21 @@ function Login() {
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword); // Toggle the state
+    };
+
+    const handleResendOtp = async ({ email }) => {
+        try {
+            await axios
+                .post(RESEND_OTP, {
+                    email,
+                })
+                .then((res) => {
+                    // console.log(res);
+                });
+            // console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     // const hanldeLogin = async (e) => {
@@ -65,6 +80,7 @@ function Login() {
     const handleLogin = async (data) => {
         setIsLoading(true);
         // e.preventDefault();
+        // setEmail(data.email);
         try {
             const response = await axios.post(
                 LOGIN_API,
@@ -98,7 +114,8 @@ function Login() {
                     }, 1500);
                 }
                 if (responseData.message === "User not verified") {
-                    dispatch(userAction.addToEmail(email));
+                    handleResendOtp({ email: data.email });
+                    dispatch(userAction.addToEmail(data.email));
                     setTimeout(() => {
                         router.push("/verify-user");
                     }, 2000);
@@ -230,11 +247,11 @@ function Login() {
                             </Button>
                         </form>
                     </div>
-                    <div className="flex items-center lg:my-6 my-3">
+                    {/* <div className="flex items-center lg:my-6 my-3">
                         <div className="flex-1 h-0.5 bg-gray-300"></div>
                         <div className="mx-4 text-gray-500">Or</div>
                         <div className="flex-1 h-0.5 bg-gray-300"></div>
-                    </div>
+                    </div> */}
                     <div className="text-center lg:mt-7 mt-4 text-[13px] ">
                         {/* <p>
                             Dont you have an account?

@@ -266,13 +266,15 @@ export default function Transaction() {
                             </Button> */}
                         </div>
                     </div>
-                    {transaction.map((transaction) => (
-                        <TransactionCard
-                            key={transaction.id}
-                            transaction={transaction}
-                            onDelete={() => handleDelete(transaction.id)}
-                        />
-                    ))}
+                    <div className="lg:flex lg:gap-5">
+                        {transaction.map((transaction) => (
+                            <TransactionCard
+                                key={transaction.id}
+                                transaction={transaction}
+                                onDelete={() => handleDelete(transaction.id)}
+                            />
+                        ))}
+                    </div>
                 </div>
             </div>
             <ToastContainer
