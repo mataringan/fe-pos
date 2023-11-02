@@ -1,6 +1,6 @@
 "use client";
 
-import { TRANSACTION, TRANSACTION_ADMIN } from "@/apis";
+import { TRANSACTION, TRANSACTION_ADMIN, TRANSACTION_EMAIL } from "@/apis";
 import BottomNavbar from "@/components/BottomNavbar";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -183,6 +183,31 @@ export default function Transaction() {
         }
     };
 
+    const handleEmail = async (transactionId) => {
+        try {
+            await axios
+                .post(
+                    TRANSACTION_EMAIL,
+                    {
+                        transactionId,
+                    },
+                    {
+                        headers: {
+                            accept: "*/*",
+                            Authorization: `Bearer ${token}`,
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then((res) => {
+                    // console.log(res);
+                    toast.success("Cetak Invoice Berhasil, Silahkan cek Email");
+                });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <div>
             <div className="flex w-full">
@@ -190,7 +215,7 @@ export default function Transaction() {
                     <BottomNavbar />
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
-                    <h1 className="font-bold text-2xl">Dashboard</h1>
+                    <h1 className="font-bold text-2xl">Transaksi</h1>
                     {role === "super admin" ? (
                         <p>Hi Super Admin! Selamat Datang di Dashboard</p>
                     ) : role === "admin" ? (
@@ -272,6 +297,7 @@ export default function Transaction() {
                                 key={transaction.id}
                                 transaction={transaction}
                                 onDelete={() => handleDelete(transaction.id)}
+                                onEmail={() => handleEmail(transaction.id)}
                             />
                         ))}
                     </div>

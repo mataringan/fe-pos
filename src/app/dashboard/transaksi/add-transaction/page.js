@@ -18,6 +18,8 @@ export default function AddTransaksi() {
     const [product, setProduct] = useState([]);
     const [productId, setProductId] = useState();
     const [buyer, setBuyer] = useState();
+    const [email, setEmail] = useState();
+    const [phone, setPhone] = useState();
     const [date, setDate] = useState();
     const [quantity, setQuantity] = useState();
     const [image, setImage] = useState();
@@ -57,6 +59,8 @@ export default function AddTransaksi() {
                     {
                         productId,
                         buyer,
+                        email,
+                        phone,
                         date: isoDate,
                         quantity,
                         image,
@@ -82,6 +86,8 @@ export default function AddTransaksi() {
                 });
         } catch (error) {
             console.log(error);
+            // toast.error("Data Pembeli Sudah Ada");
+            setIsLoading(false);
         }
     };
 
@@ -103,9 +109,9 @@ export default function AddTransaksi() {
                     <BottomNavbar />
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
-                    <h1 className="font-bold text-2xl">Dashboard</h1>
+                    <h1 className="font-bold text-2xl">Tambah Transaksi</h1>
                     <p className="mb-2">
-                        Selamat Datang di Dashboard Transaksi
+                        Selamat Datang di Dashboard Tambah Transaksi
                     </p>
                     <form onSubmit={handleAddTransaction}>
                         <div className="mb-4">
@@ -118,6 +124,32 @@ export default function AddTransaksi() {
                             <Input
                                 type="text"
                                 onChange={(e) => setBuyer(e.target.value)}
+                                className="w-full p-2 border rounded"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="pembeli"
+                                className="block font-semibold mb-2"
+                            >
+                                Email
+                            </label>
+                            <Input
+                                type="text"
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full p-2 border rounded"
+                            />
+                        </div>
+                        <div className="mb-4">
+                            <label
+                                htmlFor="pembeli"
+                                className="block font-semibold mb-2"
+                            >
+                                Phone
+                            </label>
+                            <Input
+                                type="text"
+                                onChange={(e) => setPhone(e.target.value)}
                                 className="w-full p-2 border rounded"
                             />
                         </div>

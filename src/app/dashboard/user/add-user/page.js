@@ -63,7 +63,7 @@ export default function AddUser() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <div className="mb-6">
-                        <h1 className="font-bold text-2xl">Dashboard</h1>
+                        <h1 className="font-bold text-2xl">Tambah User</h1>
                         {roleUser === "super admin" ? (
                             <p>
                                 Hi Super Admin! Selamat Datang di Dashboard

@@ -5,6 +5,7 @@ import { MdOutlineAccountCircle, MdAddCircle } from "react-icons/md";
 import { BsCart2 } from "react-icons/bs";
 import { BiHomeAlt } from "react-icons/bi";
 import { SlNotebook } from "react-icons/sl";
+import { AiOutlineMenu } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
@@ -46,11 +47,11 @@ export default function BottomNavbar() {
             )}
             <div>
                 <Link
-                    href="/dashboard/laporan"
+                    href="/dashboard/menu"
                     className="flex gap-x-2 items-center lg:flex-row flex-col"
                 >
-                    <SlNotebook />
-                    <h1 className="font-bold">Laporan</h1>
+                    <AiOutlineMenu />
+                    <h1 className="font-bold">Menu</h1>
                 </Link>
             </div>
             <div>

@@ -19,6 +19,8 @@ export default function EditTransaction() {
     const [productId, setProductId] = useState();
     const [buyer, setBuyer] = useState("");
     const [date, setDate] = useState("");
+    const [email, setEmail] = useState("");
+    const [phone, setPhone] = useState("");
     const [quantity, setQuantity] = useState(0);
     const [image, setImage] = useState(null);
     const [newImage, setNewImage] = useState(null);
@@ -50,10 +52,12 @@ export default function EditTransaction() {
                 Authorization: `Bearer ${token}`,
             },
         });
-        // console.log(response);
+        // console.log(response.data.data);
         const data = response.data.data;
         setProductId(data.productId);
         setBuyer(data.buyer);
+        setEmail(data.TransactionPoints[0].email);
+        setPhone(data.TransactionPoints[0].phone);
         setDate(data.date);
         setQuantity(data.quantity);
         setImage(data.image);
@@ -78,6 +82,8 @@ export default function EditTransaction() {
                 `${TRANSACTION}/${id}`,
                 {
                     buyer,
+                    email,
+                    phone,
                     date: isoDate,
                     quantity,
                     image: newImage || image,
@@ -102,14 +108,17 @@ export default function EditTransaction() {
             });
     };
     // console.log(productId);
+    // console.log(email);
     return (
         <div className="flex w-full">
             <div className="lg:w-[20%]">
                 <BottomNavbar />
             </div>
             <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
-                <h1 className="font-bold text-2xl">Dashboard</h1>
-                <p className="mb-2">Edit Transaksi</p>
+                <h1 className="font-bold text-2xl">Edit Transaksi</h1>
+                <p className="mb-2">
+                    Selamat Datang di Dashboard Edit Transaksi
+                </p>
                 <form onSubmit={handleUpdate}>
                     <div className="mb-4">
                         <label htmlFor="pembeli">Pembeli</label>
@@ -118,6 +127,34 @@ export default function EditTransaction() {
                             type="text"
                             className="w-full p-2 border rounded"
                             onChange={(e) => setBuyer(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="pembeli"
+                            className="block font-semibold mb-2"
+                        >
+                            Email
+                        </label>
+                        <Input
+                            type="text"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className="w-full p-2 border rounded"
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label
+                            htmlFor="pembeli"
+                            className="block font-semibold mb-2"
+                        >
+                            Phone
+                        </label>
+                        <Input
+                            type="text"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            className="w-full p-2 border rounded"
                         />
                     </div>
                     <div className="mb-4">

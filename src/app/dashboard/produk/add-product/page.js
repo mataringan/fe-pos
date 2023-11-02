@@ -17,6 +17,7 @@ export default function TambahProdukPage() {
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState();
     const [stok, setStok] = useState();
+    const [point, setPoint] = useState();
     const [category, setCategory] = useState();
     const [image, setImage] = useState();
     const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,7 @@ export default function TambahProdukPage() {
                         stok,
                         category,
                         image,
+                        point,
                     },
                     {
                         headers: {
@@ -70,7 +72,7 @@ export default function TambahProdukPage() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     {/* Main Content */}
-                    <h1 className="font-bold text-2xl">Dashboard</h1>
+                    <h1 className="font-bold text-2xl">Tambah Produk</h1>
                     <p className="mb-2">
                         Hi Admin! Selamat Datang di Dashboard Tambah Produk
                     </p>
@@ -165,6 +167,20 @@ export default function TambahProdukPage() {
                                     />
                                     <label htmlFor="pupuk">Pupuk</label>
                                 </div>
+                            </div>
+                            <div className="mb-4">
+                                <label
+                                    htmlFor="Poin"
+                                    className="block font-semibold mb-2"
+                                >
+                                    Poin
+                                </label>
+                                <Input
+                                    type="number"
+                                    id="Poin"
+                                    onChange={(e) => setPoint(e.target.value)}
+                                    className="w-full p-2 border rounded"
+                                />
                             </div>
                             <div className="mb-4">
                                 <label

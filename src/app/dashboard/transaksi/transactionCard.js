@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-export default function TransactionCard({ transaction, onDelete }) {
+export default function TransactionCard({ transaction, onEmail, onDelete }) {
     return (
         <div className="bg-white rounded-lg shadow-md p-4 mb-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -18,6 +18,12 @@ export default function TransactionCard({ transaction, onDelete }) {
                     </p>
                     <p className="text-gray-600 mb-2">
                         Pembeli: {transaction.buyer}
+                    </p>
+                    <p className="text-gray-600 mb-2">
+                        Email: {transaction.TransactionPoints[0].email}
+                    </p>
+                    <p className="text-gray-600 mb-2">
+                        Phone: {transaction.TransactionPoints[0].phone}
                     </p>
                     <p className="text-gray-600 mb-2">
                         Produk : {transaction.Product.name}
@@ -52,12 +58,19 @@ export default function TransactionCard({ transaction, onDelete }) {
                     )}
                 </div>
                 <div className="flex gap-2">
+                    <Button onClick={onEmail}>
+                        <div className="bg-green-500 flex text-white w-[90px] rounded-rad-1 justify-center p-1 gap-1 cursor-pointer rounded-md">
+                            <p>📩</p>
+                            <p>Email</p>
+                        </div>
+                    </Button>
                     <Link href={`/dashboard/transaksi/${transaction.id}`}>
                         <div className="bg-color-1 flex bg-yellow-400 text-white w-[90px] justify-center p-1 gap-1 cursor-pointer rounded-md">
                             <p>📝</p>
                             <p>Edit</p>
                         </div>
                     </Link>
+
                     <Button onClick={onDelete}>
                         <div className="bg-red-600 flex text-white w-[90px] rounded-rad-1 justify-center p-1 gap-1 cursor-pointer rounded-md">
                             <p>❌</p>

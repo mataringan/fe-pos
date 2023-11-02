@@ -76,7 +76,7 @@ export default function Laporan() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <div className="mb-6">
-                        <h1 className="font-bold text-2xl">Dashboard</h1>
+                        <h1 className="font-bold text-2xl">Laporan</h1>
                         {role === "super admin" ? (
                             <p>
                                 Hi Super Admin! Selamat Datang di Dashboard

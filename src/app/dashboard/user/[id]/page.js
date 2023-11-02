@@ -81,20 +81,19 @@ export default function EditUser() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <div className="mb-6">
-                        <h1 className="font-bold text-2xl">Dashboard</h1>
+                        <h1 className="font-bold text-2xl">Edit User</h1>
                         {roleUser === "super admin" ? (
                             <p>
-                                Hi Super Admin! Selamat Datang di Dashboard
-                                Tambah User
+                                Hi Super Admin! Selamat Datang di Dashboard Edit
+                                User
                             </p>
                         ) : roleUser === "admin" ? (
                             <p>
-                                Hi Admin! Selamat Datang di Dashboard Tambah
-                                User
+                                Hi Admin! Selamat Datang di Dashboard Edit User
                             </p>
                         ) : (
                             <p>
-                                Hi Karyawan! Selamat Datang di Dashboard Tambah
+                                Hi Karyawan! Selamat Datang di Dashboard Edit
                                 User
                             </p>
                         )}

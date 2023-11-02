@@ -16,10 +16,13 @@ export const GET_ALL_USER_BY_ADMIN = `${API_URL}/all-user`;
 export const ADD_PRODUCT = `${API_URL}/product`;
 export const GET_PRODUCT = `${API_URL}/product`;
 export const TRANSACTION = `${API_URL}/transaction`;
+export const TRANSACTION_EMAIL = `${API_URL}/transaction-email`;
 export const TRANSACTION_BY_USER = `${API_URL}/transactionByIdUser`;
 export const TRANSACTION_ADMIN = `${API_URL}/all-transaction`;
 export const TRANSACTION_ADDRESS = `${API_URL}/transaction-address`;
 export const NEW_TRANSACTION = `${API_URL}/transaction-new`;
 export const INFORMATION = `${API_URL}/information`;
+export const LEADERBOARD_USER = `${API_URL}/pointsIdUser`;
+export const LEADERBOARD_BUYER = `${API_URL}/pointsBuyer`;
 
 // tambahkan lebih banyak URL endpoint sesuai kebutuhan Anda

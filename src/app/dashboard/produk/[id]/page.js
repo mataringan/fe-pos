@@ -89,7 +89,7 @@ export default function EditPage() {
             </div>
             <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                 {/* Main Content */}
-                <h1 className="font-bold text-2xl">Dashboard</h1>
+                <h1 className="font-bold text-2xl">Edit Produk</h1>
                 <p className="mb-2">
                     Hi Admin! Selamat Datang di Dashboard Edit Produk
                 </p>

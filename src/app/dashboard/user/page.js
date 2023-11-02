@@ -151,15 +151,22 @@ export default function User() {
                 </div>
                 <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
                     <div className="mb-6">
-                        <h1 className="font-bold text-2xl">Dashboard</h1>
+                        <h1 className="font-bold text-2xl">Manajemen User</h1>
                         {role === "super admin" ? (
                             <p>
-                                Hi Super Admin! Selamat Datang di Dashboard User
+                                Hi Super Admin! Selamat Datang di Dashboard
+                                Manajemen User
                             </p>
                         ) : role === "admin" ? (
-                            <p>Hi Admin! Selamat Datang di Dashboard User</p>
+                            <p>
+                                Hi Admin! Selamat Datang di Dashboard Manajemen
+                                User
+                            </p>
                         ) : (
-                            <p>Hi Karyawan! Selamat Datang di Dashboard User</p>
+                            <p>
+                                Hi Karyawan! Selamat Datang di Dashboard
+                                Manajemen User
+                            </p>
                         )}
                     </div>
                     <div className="flex justify-between ">
