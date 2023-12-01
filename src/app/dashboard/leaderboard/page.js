@@ -8,13 +8,13 @@ import React, { useEffect, useState } from "react";
 
 export default function Leaderboard() {
     const [leaderboardData, setLeaderboardData] = useState([]);
-    const [leaderboardDataUser, setLeaderboardDataUser] = useState([]);
+    // const [leaderboardDataUser, setLeaderboardDataUser] = useState([]);
 
     const token = localStorage.getItem("token");
 
     useEffect(() => {
         getLeaderboardBuyer();
-        getLeaderboardUser();
+        // getLeaderboardUser();
     }, []);
 
     const getLeaderboardBuyer = async () => {
@@ -28,16 +28,16 @@ export default function Leaderboard() {
             });
     };
 
-    const getLeaderboardUser = async () => {
-        await axios
-            .get(LEADERBOARD_USER, {
-                headers: { Authorization: `Bearer ${token}` },
-            })
-            .then((res) => {
-                // console.log(res);
-                setLeaderboardDataUser(res.data.data);
-            });
-    };
+    // const getLeaderboardUser = async () => {
+    //     await axios
+    //         .get(LEADERBOARD_USER, {
+    //             headers: { Authorization: `Bearer ${token}` },
+    //         })
+    //         .then((res) => {
+    //             // console.log(res);
+    //             setLeaderboardDataUser(res.data.data);
+    //         });
+    // };
 
     return (
         <div className="flex flex-col lg:flex-row w-full h-screen">
@@ -53,12 +53,12 @@ export default function Leaderboard() {
                     </h1>
                     <LeaderboardLayout data={leaderboardData} />
                 </div>
-                <div>
+                {/* <div>
                     <h1 className="font-semibold text-1xl mb-2">
                         Leaderboard Karyawan
                     </h1>
                     <LeaderboardLayout data={leaderboardDataUser} />
-                </div>
+                </div> */}
             </div>
         </div>
     );

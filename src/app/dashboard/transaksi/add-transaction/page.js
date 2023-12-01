@@ -11,6 +11,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDebounce } from "use-debounce";
 
 export default function AddTransaksi() {
     const role = useSelector((state) => state.userData.role);
@@ -20,6 +21,7 @@ export default function AddTransaksi() {
     const [buyer, setBuyer] = useState();
     const [email, setEmail] = useState();
     const [phone, setPhone] = useState();
+    const [rewardId, setRewardId] = useState();
     const [date, setDate] = useState();
     const [quantity, setQuantity] = useState();
     const [image, setImage] = useState();
@@ -27,8 +29,55 @@ export default function AddTransaksi() {
     const [note, setNote] = useState();
     const [status, setStatus] = useState("");
     const [selectedOption, setSelectedOption] = useState();
-    const token = localStorage.getItem("token");
     const [isLoading, setIsLoading] = useState(false);
+    const [reward, setReward] = useState([]);
+    const [clickReward, setClickReward] = useState(false);
+    const token = localStorage.getItem("token");
+
+    const [debouncedSearchPhone] = useDebounce(phone, 500);
+
+    // useEffect(() => {
+    //     if (debouncedSearchPhone) {
+    //         axios
+    //             .get(`http://localhost:8000/rewardbypoin`, {
+    //                 params: {
+    //                     phone: phone,
+    //                 },
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             })
+    //             .then((res) => {
+    //                 // console.log(res);
+    //                 setReward(res.data.data);
+    //                 // if (res.data.data === null) {
+    //                 //     setPointUser(0);
+    //                 // } else {
+    //                 //     setPointUser(res.data.data.points_balance);
+    //                 // }
+    //             });
+    //     }
+    // }, [debouncedSearchPhone]);
+
+    const clickRewardButton = () => {
+        setClickReward(!clickReward);
+    };
+
+    const checkReward = () => {
+        axios
+            .get(`http://localhost:8000/rewardbypoin`, {
+                params: {
+                    phone: phone,
+                },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+                setReward(res.data.data);
+            });
+    };
 
     const handleDropdownChange = (e) => {
         const selectedProductName = e.target.value;
@@ -41,8 +90,9 @@ export default function AddTransaksi() {
         setSelectedOption(selectedProductName);
     };
 
-    // console.log(productId);
-    // console.log(product);
+    const handleClaimReward = (rewardId) => {
+        setRewardId(rewardId);
+    };
 
     useEffect(() => {
         fetchDataProduct();
@@ -64,6 +114,7 @@ export default function AddTransaksi() {
                         date: isoDate,
                         quantity,
                         image,
+                        rewardId,
                         status,
                         address,
                         note,
@@ -231,7 +282,7 @@ export default function AddTransaksi() {
                                 className="w-full p-2 border rounded"
                             />
                         </div>
-                        <div className="mb-4">
+                        {/* <div className="mb-4">
                             <label htmlFor="image" className="mr-4">
                                 Bukti
                             </label>
@@ -249,17 +300,69 @@ export default function AddTransaksi() {
                                     alt="transaction-image"
                                 />
                             )}
+                        </div> */}
+                        <div>
+                            <button
+                                type="button"
+                                className="bg-yellow-500 mb-2 mr-4 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded"
+                                onClick={() => {
+                                    checkReward();
+                                    clickRewardButton();
+                                }}
+                            >
+                                Check Reward
+                            </button>
+                            {clickReward ? (
+                                reward.length > 0 ? (
+                                    <div className="flex gap-2">
+                                        {reward.map((item) => (
+                                            <div
+                                                className={
+                                                    rewardId === item.id
+                                                        ? `border p-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 bg-slate-300`
+                                                        : `border p-4 mb-4 sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5`
+                                                }
+                                                key={item.id}
+                                            >
+                                                <p className="text-lg font-semibold mb-2">
+                                                    {item.description}
+                                                </p>
+                                                <button
+                                                    type="button"
+                                                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                                    onClick={() => {
+                                                        handleClaimReward(
+                                                            item.id
+                                                        );
+                                                    }}
+                                                >
+                                                    Claim
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <p className="my-2 text-red-800">
+                                        Tidak ada reward
+                                    </p>
+                                )
+                            ) : (
+                                ""
+                            )}
+
+                            <Button
+                                type="submit"
+                                className={`bg-blue-500 hover:bg-blue-700 font-semibold text-white px-4 py-2 rounded ${
+                                    isLoading
+                                        ? "opacity-70 pointer-events-none"
+                                        : ""
+                                }`}
+                            >
+                                {isLoading
+                                    ? "Loading..."
+                                    : "Create Transaction"}
+                            </Button>
                         </div>
-                        <Button
-                            type="submit"
-                            className={`bg-blue-500 text-white px-4 py-2 rounded ${
-                                isLoading
-                                    ? "opacity-70 pointer-events-none"
-                                    : ""
-                            }`}
-                        >
-                            {isLoading ? "Loading..." : "Kirim"}
-                        </Button>
                     </form>
                 </div>
             </div>

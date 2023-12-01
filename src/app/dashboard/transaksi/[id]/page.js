@@ -56,8 +56,8 @@ export default function EditTransaction() {
         const data = response.data.data;
         setProductId(data.productId);
         setBuyer(data.buyer);
-        setEmail(data.TransactionPoints[0].email);
-        setPhone(data.TransactionPoints[0].phone);
+        // setEmail(data.TransactionPoints[0].email);
+        // setPhone(data.TransactionPoints[0].phone);
         setDate(data.date);
         setQuantity(data.quantity);
         setImage(data.image);
@@ -207,7 +207,7 @@ export default function EditTransaction() {
                             onChange={(e) => setNote(e.target.value)}
                         />
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="image" className="mr-4">
                             Bukti
                         </label>
@@ -215,8 +215,8 @@ export default function EditTransaction() {
                             type="file"
                             onChange={(e) => setNewImage(e.target.files[0])}
                         />
-                    </div>
-                    <div className="mb-4">
+                    </div> */}
+                    {/* <div className="mb-4">
                         {newImage ? (
                             <Image
                                 src={URL.createObjectURL(newImage)}
@@ -232,7 +232,7 @@ export default function EditTransaction() {
                                 alt="image-transaction"
                             />
                         ) : null}
-                    </div>
+                    </div> */}
                     <Button
                         type="submit"
                         className={`bg-blue-500 text-white px-4 py-2 rounded ${

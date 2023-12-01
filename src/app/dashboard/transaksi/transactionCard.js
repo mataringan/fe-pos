@@ -19,12 +19,12 @@ export default function TransactionCard({ transaction, onEmail, onDelete }) {
                     <p className="text-gray-600 mb-2">
                         Pembeli: {transaction.buyer}
                     </p>
-                    <p className="text-gray-600 mb-2">
+                    {/* <p className="text-gray-600 mb-2">
                         Email: {transaction.TransactionPoints[0].email}
                     </p>
                     <p className="text-gray-600 mb-2">
                         Phone: {transaction.TransactionPoints[0].phone}
-                    </p>
+                    </p> */}
                     <p className="text-gray-600 mb-2">
                         Produk : {transaction.Product.name}
                     </p>

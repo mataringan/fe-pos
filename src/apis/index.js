@@ -24,5 +24,6 @@ export const NEW_TRANSACTION = `${API_URL}/transaction-new`;
 export const INFORMATION = `${API_URL}/information`;
 export const LEADERBOARD_USER = `${API_URL}/pointsIdUser`;
 export const LEADERBOARD_BUYER = `${API_URL}/pointsBuyer`;
+export const REWARD = `${API_URL}/reward`;
 
 // tambahkan lebih banyak URL endpoint sesuai kebutuhan Anda

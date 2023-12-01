@@ -257,7 +257,7 @@ export default function LaporanUser() {
                                 getExcellLaporanUser();
                             }}
                         >
-                            Cetak Data Laporan {name} - {role}
+                            Cetak Data Laporan
                         </button>
                     </div>
                     <div className="overflow-x-auto rounded-md">
