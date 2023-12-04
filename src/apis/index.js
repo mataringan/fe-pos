@@ -1,6 +1,6 @@
 // api/endpoints.js
-const API_URL = "https://0gpshzkd-8000.asse.devtunnels.ms";
-// const API_URL = "http://localhost:8000";
+// const API_URL = "https://0gpshzkd-8000.asse.devtunnels.ms";
+const API_URL = "http://localhost:8000";
 
 export const REGISTER_API = `${API_URL}/register`;
 export const ADD_USER = `${API_URL}/add-user`;
@@ -24,6 +24,7 @@ export const NEW_TRANSACTION = `${API_URL}/transaction-new`;
 export const INFORMATION = `${API_URL}/information`;
 export const LEADERBOARD_USER = `${API_URL}/pointsIdUser`;
 export const LEADERBOARD_BUYER = `${API_URL}/pointsBuyer`;
+export const POINT_BUYER = `${API_URL}/pointsByQuery`;
 export const REWARD = `${API_URL}/reward`;
 
 // tambahkan lebih banyak URL endpoint sesuai kebutuhan Anda

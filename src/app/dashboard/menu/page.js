@@ -7,6 +7,7 @@ import { MdOutlineLeaderboard } from "react-icons/md";
 import { FiUsers } from "react-icons/fi";
 import { GrCircleInformation } from "react-icons/gr";
 import { FaCoins } from "react-icons/fa6";
+import { GrAchievement } from "react-icons/gr";
 import { useSelector } from "react-redux";
 
 export default function Menu() {
@@ -83,6 +84,16 @@ export default function Menu() {
                         ) : (
                             ""
                         )}
+                        <div className="flex w-max flex-col items-center gap-3 rounded-[20px] bg-white px-[16px] pb-[20px] pt-[14px]">
+                            <GrAchievement className="h-16 w-16 py-[10px]" />
+                            <p className="font-bold">Poin</p>
+                            <Link
+                                href={"/dashboard/poin"}
+                                className="w-max rounded-[10px] px-[40px] py-[8px] bg-blue-500 hover:bg-blue-800 text-white"
+                            >
+                                Pilih
+                            </Link>
+                        </div>
                     </div>
                 </div>
             </div>

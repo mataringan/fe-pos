@@ -74,7 +74,6 @@ export default function AddTransaksi() {
                 },
             })
             .then((res) => {
-                console.log(res);
                 setReward(res.data.data);
             });
     };
@@ -101,6 +100,13 @@ export default function AddTransaksi() {
     const handleAddTransaction = async (e) => {
         setIsLoading(true);
         e.preventDefault();
+
+        // Validasi quantity
+        if (!quantity || quantity <= 0) {
+            toast.error("Masukan jumlah yang sesuai");
+            return;
+        }
+
         try {
             const isoDate = new Date(date).toISOString();
             await axios
@@ -136,7 +142,13 @@ export default function AddTransaksi() {
                     }, 2000);
                 });
         } catch (error) {
-            console.log(error);
+            // console.log(error.response.data.message);
+            if (
+                error.response.data.message ==
+                "Stok yang tersedia tidak mencukupi"
+            ) {
+                toast.error("Stok yang tersedia tidak mencukupi");
+            }
             // toast.error("Data Pembeli Sudah Ada");
             setIsLoading(false);
         }

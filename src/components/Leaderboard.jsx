@@ -28,7 +28,7 @@ const LeaderboardLayout = ({ data }) => {
                                 {user.phone}
                             </td>
                             <td className="w-10 border border-yellow-300">
-                                {user.point}
+                                {user.points_balance}
                             </td>
                         </tr>
                     ))}
