@@ -26,9 +26,9 @@ import {
 } from "@/apis";
 import { formatRupiah } from "@/utils/formatRupiah";
 import Link from "next/link";
-import PointEmployee from "@/components/pointEmployee";
 import { getPoint } from "@/utils/point";
 import { FiStar } from "react-icons/fi";
+import PointEmployee from "@/components/PointEmployee";
 
 export default function Dashboard() {
     const router = useRouter();
