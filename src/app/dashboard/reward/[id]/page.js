@@ -17,7 +17,7 @@ export default function EditReward() {
     const router = useRouter();
 
     const [point, setPoint] = useState(0);
-    const [discount, setDiscount] = useState(0);
+    const [reward, setReward] = useState(0);
     const [description, setDescription] = useState("");
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function EditReward() {
                 // console.log(res);
                 const data = res.data.data;
                 setPoint(data.point);
-                setDiscount(data.discount);
+                setReward(data.reward);
                 setDescription(data.description);
             });
         }
@@ -39,7 +39,7 @@ export default function EditReward() {
             axios
                 .put(
                     `${REWARD}/${id}`,
-                    { point, discount, description },
+                    { point, reward, description },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -88,16 +88,16 @@ export default function EditReward() {
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="discount"
+                            htmlFor="reward"
                             className="block font-semibold mb-2"
                         >
-                            Discount
+                            Reward
                         </label>
                         <Input
-                            id="discount"
+                            id="reward"
                             type="number"
-                            value={discount}
-                            onChange={(e) => setDiscount(e.target.value)}
+                            value={reward}
+                            onChange={(e) => setReward(e.target.value)}
                             className="w-full p-2 border rounded"
                         />
                     </div>

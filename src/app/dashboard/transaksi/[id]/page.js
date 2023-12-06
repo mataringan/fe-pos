@@ -56,8 +56,8 @@ export default function EditTransaction() {
         const data = response.data.data;
         setProductId(data.productId);
         setBuyer(data.buyer);
-        // setEmail(data.TransactionPoints[0].email);
-        // setPhone(data.TransactionPoints[0].phone);
+        setEmail(data.email);
+        setPhone(data.phone);
         setDate(data.date);
         setQuantity(data.quantity);
         setImage(data.image);

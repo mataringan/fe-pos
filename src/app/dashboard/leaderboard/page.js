@@ -1,20 +1,26 @@
 "use client";
 
-import { LEADERBOARD_BUYER, LEADERBOARD_USER } from "@/apis";
+import {
+    LEADERBOARD_BUYER,
+    LEADERBOARD_USER,
+    POINT_EMPLOYEE,
+    POINT_USER,
+} from "@/apis";
 import BottomNavbar from "@/components/BottomNavbar";
 import LeaderboardLayout from "@/components/Leaderboard";
+import LeaderboardEmployee from "@/components/LeaderboardKaryawan";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
 export default function Leaderboard() {
     const [leaderboardData, setLeaderboardData] = useState([]);
-    // const [leaderboardDataUser, setLeaderboardDataUser] = useState([]);
+    const [leaderboardDataUser, setLeaderboardDataUser] = useState([]);
 
     const token = localStorage.getItem("token");
 
     useEffect(() => {
         getLeaderboardBuyer();
-        // getLeaderboardUser();
+        getLeaderboardEmployee();
     }, []);
 
     const getLeaderboardBuyer = async () => {
@@ -28,16 +34,16 @@ export default function Leaderboard() {
             });
     };
 
-    // const getLeaderboardUser = async () => {
-    //     await axios
-    //         .get(LEADERBOARD_USER, {
-    //             headers: { Authorization: `Bearer ${token}` },
-    //         })
-    //         .then((res) => {
-    //             // console.log(res);
-    //             setLeaderboardDataUser(res.data.data);
-    //         });
-    // };
+    const getLeaderboardEmployee = async () => {
+        await axios
+            .get(POINT_EMPLOYEE, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((res) => {
+                // console.log(res);
+                setLeaderboardDataUser(res.data.data);
+            });
+    };
 
     return (
         <div className="flex flex-col lg:flex-row w-full h-screen">
@@ -53,12 +59,12 @@ export default function Leaderboard() {
                     </h1>
                     <LeaderboardLayout data={leaderboardData} />
                 </div>
-                {/* <div>
+                <div>
                     <h1 className="font-semibold text-1xl mb-2">
                         Leaderboard Karyawan
                     </h1>
-                    <LeaderboardLayout data={leaderboardDataUser} />
-                </div> */}
+                    <LeaderboardEmployee data={leaderboardDataUser} />
+                </div>
             </div>
         </div>
     );

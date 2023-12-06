@@ -70,20 +70,18 @@ export default function Menu() {
                                 Pilih
                             </Link>
                         </div>
-                        {role === "admin" || role === "super admin" ? (
-                            <div className="flex w-max flex-col items-center gap-3 rounded-[20px] bg-white px-[16px] pb-[20px] pt-[14px]">
-                                <FaCoins className="h-16 w-16 py-[10px]" />
-                                <p className="font-bold">Reward</p>
-                                <Link
-                                    href={"/dashboard/reward"}
-                                    className="w-max rounded-[10px] px-[40px] py-[8px] bg-blue-500 hover:bg-blue-800 text-white"
-                                >
-                                    Pilih
-                                </Link>
-                            </div>
-                        ) : (
-                            ""
-                        )}
+                        {/* {role === "admin" || role === "super admin" ? ( */}
+                        <div className="flex w-max flex-col items-center gap-3 rounded-[20px] bg-white px-[16px] pb-[20px] pt-[14px]">
+                            <FaCoins className="h-16 w-16 py-[10px]" />
+                            <p className="font-bold">Reward</p>
+                            <Link
+                                href={"/dashboard/reward"}
+                                className="w-max rounded-[10px] px-[40px] py-[8px] bg-blue-500 hover:bg-blue-800 text-white"
+                            >
+                                Pilih
+                            </Link>
+                        </div>
+
                         <div className="flex w-max flex-col items-center gap-3 rounded-[20px] bg-white px-[16px] pb-[20px] pt-[14px]">
                             <GrAchievement className="h-16 w-16 py-[10px]" />
                             <p className="font-bold">Poin</p>

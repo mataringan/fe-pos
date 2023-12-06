@@ -26,6 +26,9 @@ import {
 } from "@/apis";
 import { formatRupiah } from "@/utils/formatRupiah";
 import Link from "next/link";
+import PointEmployee from "@/components/pointEmployee";
+import { getPoint } from "@/utils/point";
+import { FiStar } from "react-icons/fi";
 
 export default function Dashboard() {
     const router = useRouter();
@@ -37,12 +40,9 @@ export default function Dashboard() {
     const [address, setAddress] = useState([]);
     const [transaction, setTransaction] = useState([]);
     const [information, setInformation] = useState([]);
+    const [point, setPoint] = useState(0);
 
     useEffect(() => {
-        fetchData();
-    }, []);
-
-    const fetchData = async () => {
         if (!token) {
             toast.error("Anda Belum Login");
             setTimeout(() => {
@@ -86,8 +86,18 @@ export default function Dashboard() {
                 // console.log(res);
                 setInformation(res.data.data);
             });
+
+            if (role === "karyawan") {
+                getPoint({ token }).then((res) => {
+                    // console.log(res.data.point);
+                    setPoint(res.data.point);
+                    // if (res.data.length > 0) {
+                    //     setPoint(res.data[0].point_employee);
+                    // }
+                });
+            }
         }
-    };
+    }, []);
 
     const calculateTotalStock = () => {
         let totalAllStock = 0;
@@ -133,16 +143,28 @@ export default function Dashboard() {
                         <BottomNavbar />
                     </div>
                     <div className="order-2 lg:w-[100%] p-4 mb-16 overflow-y-auto ">
-                        <div className="mb-6">
-                            <h1 className="font-bold text-2xl">Dashboard</h1>
-                            {role === "super admin" ? (
-                                <p>
-                                    Hi Super Admin! Selamat Datang di Dashboard
-                                </p>
-                            ) : role === "admin" ? (
-                                <p>Hi Admin! Selamat Datang di Dashboard</p>
+                        <div className="mb-6 flex justify-between">
+                            <div>
+                                <h1 className="font-bold text-2xl">
+                                    Dashboard
+                                </h1>
+                                {role === "super admin" ? (
+                                    <p>
+                                        Hi Super Admin! Selamat Datang di
+                                        Dashboard
+                                    </p>
+                                ) : role === "admin" ? (
+                                    <p>Hi Admin! Selamat Datang di Dashboard</p>
+                                ) : (
+                                    <p>
+                                        Hi Karyawan! Selamat Datang di Dashboard
+                                    </p>
+                                )}
+                            </div>
+                            {role === "karyawan" ? (
+                                <PointEmployee key={point} point={point} />
                             ) : (
-                                <p>Hi Karyawan! Selamat Datang di Dashboard</p>
+                                ""
                             )}
                         </div>
                         <div className="flex lg:justify-around flex-col lg:flex-row items-center gap-4 lg:gap-0">

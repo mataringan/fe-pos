@@ -11,8 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function AddReward() {
     const [point, setPoint] = useState();
-    const [discount, setDiscount] = useState();
+    const [reward, setReward] = useState();
     const [description, setDescription] = useState();
+    const [who, setWho] = useState();
 
     const [isLoading, setIsLoading] = useState(false);
     const token = localStorage.getItem("token");
@@ -25,7 +26,7 @@ export default function AddReward() {
             await axios
                 .post(
                     REWARD,
-                    { point, discount, description },
+                    { point, who, reward, description },
                     {
                         headers: {
                             Authorization: `Bearer ${token}`,
@@ -48,7 +49,7 @@ export default function AddReward() {
         }
     };
 
-    // console.log(point, discount, description);
+    // console.log(point, reward, description);
 
     return (
         <div className="flex w-full">
@@ -79,17 +80,42 @@ export default function AddReward() {
                     </div>
                     <div className="mb-4">
                         <label
-                            htmlFor="discount"
+                            htmlFor="reward"
                             className="block font-semibold mb-2"
                         >
-                            Discount
+                            Reward
                         </label>
                         <Input
-                            id="discount"
+                            id="reward"
                             type="number"
-                            onChange={(e) => setDiscount(e.target.value)}
+                            onChange={(e) => setReward(e.target.value)}
                             className="w-full p-2 border rounded"
                         />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block font-semibold mb-2">Role</label>
+                        <div className="flex gap-2">
+                            <div className="flex flex-row gap-2">
+                                <Input
+                                    id="buyer"
+                                    type="radio"
+                                    value="buyer"
+                                    checked={who === "buyer"}
+                                    onChange={(e) => setWho(e.target.value)}
+                                />
+                                <label htmlFor="buyer">Petani</label>
+                            </div>
+                            <div className="flex flex-row gap-2">
+                                <Input
+                                    id="employee"
+                                    type="radio"
+                                    value="employee"
+                                    checked={who === "employee"}
+                                    onChange={(e) => setWho(e.target.value)}
+                                />
+                                <label htmlFor="employee">Karyawan</label>
+                            </div>
+                        </div>
                     </div>
                     <div className="mb-4">
                         <label

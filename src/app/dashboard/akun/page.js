@@ -34,7 +34,7 @@ export default function Account() {
 
     const handleLogout = () => {
         dispatch(userAction.logout());
-        toast.success("berhasil keluar");
+        toast.success("Berhasil Keluar");
         setTimeout(() => {
             localStorage.removeItem("token");
             router.push("/login");
