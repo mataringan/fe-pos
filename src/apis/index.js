@@ -1,6 +1,7 @@
 // api/endpoints.js
-// const API_URL = "https://0gpshzkd-8000.asse.devtunnels.ms";
-const API_URL = "http://localhost:8000";
+const API_URL = "https://0gpshzkd-8000.asse.devtunnels.ms";
+
+// const API_URL = "http://localhost:8000";
 
 export const REGISTER_API = `${API_URL}/register`;
 export const ADD_USER = `${API_URL}/add-user`;
