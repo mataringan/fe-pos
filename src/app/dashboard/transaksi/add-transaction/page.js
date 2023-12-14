@@ -1,6 +1,6 @@
 "use client";
 
-import { GET_PRODUCT, TRANSACTION } from "@/apis";
+import { GET_PRODUCT, REWARD_BY_POINT_BUYER, TRANSACTION } from "@/apis";
 import BottomNavbar from "@/components/BottomNavbar";
 import Button from "@/components/Button";
 import Input from "@/components/Input";
@@ -65,7 +65,7 @@ export default function AddTransaksi() {
 
     const checkReward = () => {
         axios
-            .get(`http://localhost:8000/rewardbypoin`, {
+            .get(REWARD_BY_POINT_BUYER, {
                 params: {
                     phone: phone,
                 },
